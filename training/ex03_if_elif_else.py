@@ -6,6 +6,7 @@ We can check different related conditions using the if-elif-else statements
 def calculate_simple_interest(principal, term) -> str:
     if term < 1:
         raise ValueError('term/duration must be >= 1')
+        # throw new ValueError("term/duration must be >= 1");
     elif term <= 3:
         roi = 3.5
     elif term <= 12:
@@ -22,7 +23,7 @@ def calculate_simple_interest(principal, term) -> str:
     return principal * roi * term / 100
 
 
-def main():
+def start():
     loan_amount = int(input('Enter the loan amount: '))
     no_of_months = int(input('Enter the number of months: '))
 
@@ -30,4 +31,6 @@ def main():
     print(f'interest amount for the given loan amount and duration is {interest_amount}')
 
 
-main()
+# print(f'the value of __name__ is {__name__}')
+if __name__ == '__main__':  # if this condition is true, that means you are executing this module
+    start()
