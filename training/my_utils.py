@@ -1,11 +1,11 @@
 def dir2(obj):
-    attributes = []  # or list()
-    for each_attribute in dir(obj):
-        if not each_attribute.startswith('_'):
-            attributes.append(each_attribute)
+    return [attribute for attribute in dir(obj) if not attribute.startswith('_')]
 
-    return attributes
 
+def reverse(s: str) -> str:
+    if type(s) is not str:
+        raise TypeError('Input must be a str')
+    return s[::-1]
 
 # open a python REPL from your work folder
 # and import this dir2 function like this:
