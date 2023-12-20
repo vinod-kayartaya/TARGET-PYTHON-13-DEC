@@ -2,7 +2,8 @@ class Employee:
     DEPARTMENTS = ['ADMIN', 'ACCOUNTING', 'MARKETING', 'PRODUCTION']
 
     def __init__(self, **kwargs):
-        self.id = kwargs.get('id')  # call the setter, instead of assigning directly to the private variable
+        # call the setter, instead of assigning directly to the private variable
+        self.id = kwargs.get('id')
         self.name = kwargs.get('name')
         self.salary = kwargs.get('salary', 35000)
         self.department = kwargs.get('department', Employee.DEPARTMENTS[0])
@@ -74,30 +75,47 @@ class Employee:
         print(f'Name       : {self.name}')
         print(f'Salary     : {self.salary}')
         print(f'Department : {self.department}')
-        print()
 
+    def __iadd__(self, other):
+        if type(other) in (int, float):
+            self.salary = other if self.salary is None else self.salary + other
+        elif type(other) is str:
+            self.name = other if self.name is None else self.name + other
+        else:
+            raise TypeError('this operator works only with numbers and strings')
+        return self
+
+    def __add__(self, other):
+        if type(other) in (int, float):
+            return other if self.salary is None else self.salary + other
+        elif type(other) is str:
+            return other if self.name is None else self.name + other
+        else:
+            raise TypeError('this operator works only with numbers and strings')
+
+    def __gt__(self, other):
+        if type(other) in (int, float):
+            return self.salary > other
+        elif isinstance(other, Employee):
+            return self.salary > other.salary
+        else:
+            raise TypeError('this operator works only with numbers and Employees')
 
 if __name__ == '__main__':
     emp1 = Employee(id=1212, name='Vishal')
+    emp1 += 500  # 5000 to be added to the salary
+    emp1 += ' Kumar'  # ' Kumar' to be concatenated to the name
+    emp1.print()
+    print(emp1 + ' Malhotra')
+    print(emp1 + 4500, end='\n\n')
     emp2 = Employee(id=1234, name='Ramesh', salary=55000, department='MARKETING')
-
-    # print(dir(emp1))
-    emp1.__salary = -45000  # doesn't have any effect on the internal member variable __salary
-    emp1.__department = 1234  # I want this to result into an error
-    # print(dir(emp1))
-
-    print(emp1)
-    print(emp2)
-
-    emp1.print()
-    emp2.print()
-
-    emp1.id = 1122  # this is where the setter is called with self=emp1 and value=3456
-    emp1.name = 'Raj'
-    emp1.salary = 120000
-    emp1.department = 'production'
-
-    emp1.print()
-    print(f'emp1.id is {emp1.id}')  # the `def id(self)` is called here
-
+    if emp1 > emp2:  # want to compare the salaries of emp1 and emp2
+        print(f'{emp1.name} earns more than {emp2.name}')
+    else:
+        print(f'{emp1.name} earns less than or equals to {emp2.name}')
+    salary_to_compare = 50000
+    if emp1 > salary_to_compare:  # want to compare emp1's salary with 50000
+        print(f'{emp1.name} earns more than {salary_to_compare}')
+    else:
+        print(f'{emp1.name} earns less than or equals to {salary_to_compare}')
 
