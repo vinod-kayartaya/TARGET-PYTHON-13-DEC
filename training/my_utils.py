@@ -1,4 +1,7 @@
 def to_dict(line1: str, line2: str, delim=',') -> dict:
+    if type(line1) is not str or type(line2) is not str:
+        raise ValueError('Invalid value supplied. Must be 2/3 strings')
+
     keys = [k.strip() for k in line1.strip().split(delim)]
     keys = [int(k) if k.isdigit() else k for k in keys]
     values = [v.strip() for v in line2.strip().split(delim)]

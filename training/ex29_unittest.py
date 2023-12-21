@@ -31,6 +31,10 @@ class TestingToDictMethod(unittest.TestCase):
         expected = {'id': 1122, 'name': 'Ramesh', 3: 'ADMIN', 4: 45000}
         self.assertEqual(expected, actual)
 
+    def test_with_numbers(self):
+        with self.assertRaises(ValueError):
+            to_dict(100, 200)
+
 
 if __name__ == '__main__':
     unittest.main()
