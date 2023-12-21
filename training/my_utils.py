@@ -1,6 +1,7 @@
-def to_dict(line1: str, line2: str) -> dict:
-    keys = line1.strip().split(',')
-    values = line2.strip().split(',')
+def to_dict(line1: str, line2: str, delim=',') -> dict:
+    keys = [k.strip() for k in line1.strip().split(delim)]
+    keys = [int(k) if k.isdigit() else k for k in keys]
+    values = [v.strip() for v in line2.strip().split(delim)]
     values = [int(v) if v.isdigit() else v for v in values]
     return dict(zip(keys, values))
 

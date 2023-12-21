@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class Animal(ABC):
     @abstractmethod
     def speak(self):
-        print('Animal is generic; I don\'t know how it speaks.')
+        pass
 
     def written_by(self) -> str:
         return 'Vinod'
